@@ -1,0 +1,40 @@
+{
+    "title": "SDN Learning notes",
+    "author": "mozhuli",
+    "gitbook": ">= 3.2.2",
+    "language": "zh-cn",
+    "plugins": [
+        "alerts",
+        "mermaid",
+        "github",
+        "github-buttons",
+        "page-treeview",
+        "editlink",
+        "-lunr",
+        "-search",
+        "search-plus"
+    ],
+    "pluginsConfig": {
+        "page-treeview": {
+            "copyright": "Copyright &#169; mozhuli",
+            "minHeaderCount": "2",
+            "minHeaderDeep": "2"
+        },
+        "github-buttons": {
+            "repo": "mozhuli/sdn-learning-notes",
+            "types": [
+                "star",
+                "watch"
+            ],
+            "size": "small"
+        },
+        "github": {
+            "url": "https://github.com/mozhuli/sdn-learning-notes"
+        },
+        "editlink": {
+            "base": "https://github.com/mozhuli/sdn-learning-notes/blob/master/",
+            "label": "编辑本页"
+        }
+    },
+    "generator": "site"
+}
