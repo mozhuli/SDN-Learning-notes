@@ -1,6 +1,6 @@
 # 2.3 linux网络数据路径
 
-> 本文主要参考[wuyangchun](https://segmentfault.com/a/1190000008836467)
+> 本文主要参考自[wuyangchun](https://segmentfault.com/a/1190000008836467)
 
 linux完整的网络路径如下图所示：
 

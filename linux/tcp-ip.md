@@ -1,5 +1,7 @@
 # 2.1 TCP/IP网络模型
 
+> 注：本文主要参考自[wuyangchun](https://segmentfault.com/a/1190000008741770#articleHeader6)
+
 ## TCP/IP网络模型
 
 TCP/IP协议模型（Transmission Control Protocol/Internet Protocol），包含了一系列构成互联网基础的网络协议，是Internet的核心协议，通过20多年的发展已日渐成熟，并被广泛应用于局域网和广域网中，目前已成为事实上的国际标准。TCP/IP协议簇是一组不同层次上的多个协议的组合，通常被认为是一个四层协议系统，与OSI的七层模型相对应。

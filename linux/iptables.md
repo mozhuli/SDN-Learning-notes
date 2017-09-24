@@ -1,4 +1,4 @@
-# 2.6 iptables
+# 2.7 Netfilter/Iptables
 
 ## netfilter/iptables总体架构
 
