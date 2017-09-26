@@ -2,13 +2,15 @@
 
 ## TC流量控制方式
 
-- SHAPING 限制--流量被限制时，它的传输速率就被控制在某个值以下，限制阈值可以大大的小于有效带宽，这样可以平滑网络的突发流量，是网络更稳定，shaping适用于限制外出的流量。
+- SHAPING 限制--流量被限制时，它的传输速率就被控制在某个值以下，限制阈值可以大大的小于有效带宽，这样可以缓存平滑网络的突发流量，是网络更稳定，shaping适用于限制外出的流量（主要在于网络栈只有Egress buffer）。
 
 - SCHEDULING 调度--通过调度数据包的传输，可以在带宽范围内按照优先级分配，也只适用于限制外出流量。
 
-- POLICING 策略--用于处理接收到的数据
+- POLICING 策略--用于处理接收到的数据,多直接丢弃数据包。
 
 - DROPPING 丢弃--如果流量超过设置的带宽就丢弃数据包，向内向外皆管用。
+
+![](images/policing.png)
 
 ## TC架构
 
@@ -24,7 +26,11 @@ where  OBJECT := { qdisc | class | filter | action | monitor | exec }
                     -nm | -nam[es] | { -cf | -conf } path }
 ```
 
-Linux中网络数据流量分为入口(Ingress)部分和出口(Egress)部分，入口部分主要用于进行入口流量限速(policing)，出口部分主要用于队列调度(queuing scheduling)。
+我们看一下TC在网络栈中所处于的位置：
+
+![](images/network.png)
+
+TC模块位于网络栈的L2,Linux中网络数据流量分为入口(Ingress)部分和出口(Egress)部分，入口部分主要用于进行入口流量限速(policing)，出口部分主要用于队列调度(queuing scheduling)。
 
 大多数队列规则(qdisc)都是用于输出方向的，输入方向只有一个排队规则，即ingress qdisc。ingress qdisc本身的功能很有限（因为没有缓存只能实现流量的drop）。但可重定向incoming packets，通过Ingress qdisc把输入方向的数据包重定向到虚拟设备ifb，而ifb的输出方向可以配置多种qdisc，就可以达到对输入方向的流量做队列调度的目的。
 
@@ -33,7 +39,19 @@ TC主要包括三个对象，分别是：qdisc-排队规则、class-类别、fil
 
 ![](images/tc.jpg)
 
+TC执行流程的伪代码如下：
+
+```bash
+for_each_packet(pkt, Qdisc):
+    for_each_filter(filter, Qdisc):
+        if filter(pkt):
+            classify(pkt)
+            for_each_action(act, filter):
+                act(pkt)
+```
+
 ### qdisc
+
 qdisc是流量控制的基础，无论何时，内核如果需要通过某个网络接口发送数据包，它都需要按照该接口配置的qdisc把数据包加入队列中。内核会尽可能多的从qdisc中取出数据包，然后交给网络适配器进行处理。而qdisc又分为CLASSLESS qdisc--不可分类队列规则、CLASSFUL qdisc--分类队列规则。
 
 #### 不可分类队列规则
@@ -127,7 +145,9 @@ HTB是Hierarchy Token Bucket(分层令牌桶算法)的简写，使用HTB可以�
 
 ### class
 
- 一些qdisc可以包含一些类，不同的类中又可以包含更深入的qdisc，通过这些细分的qdisc可以为进入队列的数据包排队，通过设置各种类数据包的离队次序，可以设置网络数据流量的优先级。例如，我们要对不同的IP实施不同的流量控制策略，这时就需要用不同的类来控制。
+ 与qdisc配合组成层级的类结构。一些qdisc可以包含一些类，不同的类中又可以包含更深入的qdisc，通过这些细分的qdisc可以为进入队列的数据包排队，通过设置各种类数据包的离队次序，可以设置网络数据流量的优先级。例如，我们要对不同的IP实施不同的流量控制策略，这时就需要用不同的类来控制。
+
+![](images/class.png)
 
 ### filter
 
@@ -170,6 +190,8 @@ ip sport 80 0xffff flowid 10:1
 ## ifb模块
 
 ifb虚拟设备主要用于重定向packets。主要包含ifb0,ifb1两个虚拟设备。通过把输入，输出方向的数据包重定向到虚拟设备ifb，而ifb的输出方向可以配置多种qdisc，就可以达到对输入，输出方向的流量做队列调度的目的。
+
+![](images/ifb.png)
 
 我们看一下ifb模块的使用：
 ```
