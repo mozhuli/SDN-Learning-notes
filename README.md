@@ -12,5 +12,8 @@
 * DPDK
 
 
+项目源码存放于Github上，见[https://github.com/mozhuli/SDN-Learning-notes](https://github.com/mozhuli/SDN-Learning-notes)
 
-项目源码存放于Github上，见[https://github.com/mozhuli/SDN-Learning-notes](https://github.com/mozhuli/SDN-Learning-notes)。
+## 在线阅读
+
+可以通过[GitBook](https://mozhuli.gitbooks.io/sdn-learning-notes)或者[Github](https://github.com/mozhuli/SDN-Learning-notes/blob/master/SUMMARY.md)来在线阅读。
