@@ -21,6 +21,7 @@
     * [4.2 ovn-controller](ovn/ovn-controller.md)
     * [4.3 ovn-controller-vtep](ovn/ovn-controller-vtep.md)
     * [4.4 ovn-ctl](ovn/ovn-ctl.md)
+    * [4.10 ovn 2.8 new features](ovn/ovn-2.8.md)
 * [5. OpenFlow](openflow/index.md)
 
 ## Neutron
