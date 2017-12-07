@@ -21,7 +21,14 @@
     * [4.2 ovn-controller](ovn/ovn-controller.md)
     * [4.3 ovn-controller-vtep](ovn/ovn-controller-vtep.md)
     * [4.4 ovn-ctl](ovn/ovn-ctl.md)
-    * [4.10 ovn 2.8 new features](ovn/ovn-2.8.md)
+    * [4.5 ovn-detrace](ovn/ovn-detrace.md)
+    * [4.6 ovn-nb](ovn/ovn-nb.md)
+    * [4.7 ovn-nbctl](ovn/ovn-nbctl.md)
+    * [4.8 ovn-northd](ovn/ovn-northd.md)
+    * [4.9 ovn-sb](ovn/ovn-sb.md)
+    * [4.10 ovn-sbctl](ovn/ovn-sbctl.md)
+    * [4.11 ovn-trace](ovn/ovn-trace.md)
+    * [4.12 ovn 2.8 new features](ovn/ovn-2.8.md)
 * [5. OpenFlow](openflow/index.md)
 
 ## Neutron

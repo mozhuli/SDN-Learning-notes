@@ -1,4 +1,4 @@
-# 4.10 OVS和OVN 2.8新增功能
+# 4.12 OVS和OVN 2.8新增功能
 
 > 本文翻译自[ovs官方文档](http://docs.openvswitch.org/en/latest/topics/ovn-news-2.8/)
 
